@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Your E-commerce Site - {{ product.name }}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <!-- Left column with full-width image -->
+        <div class="col-md-6 p-0">
+            <img src="{{ product.image.url }}" alt="{{ product.name }} Image" class="img-fluid">
+        </div>
+        <!-- Right column with product details -->
+        <div class="col-md-6 bg-dark text-white">
+            <div class="p-4">
+                <h2 class="text-warning">{{ product.name }}</h2>
+                <p class="text-white">Category: {{ product.category }}</p>
+                <p class="text-white">{{ product.description }}</p>
+                <h3 class="product-price">₹ {{ product.price }}</h3>
+                <a href="{% url 'buy_single' product.id %}" type="button" class="btn mb-3 btn-sm btn-outline-warning">Go To Buy</a>
+                <form action="{% url 'add-to-cart' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-sm btn-outline-warning" type="submit">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Additional content or description column -->
+        <div class="col-md-12 bg-dark text-white p-4">
+            <h4 class="text-warning">Product Description</h4>
+            <p class="text-white">{{ product.description }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

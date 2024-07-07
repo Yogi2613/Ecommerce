@@ -1,0 +1,86 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Your E-commerce Site - Contact{% endblock %}
+
+{% block body %}
+<!-- Profile Information -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow p-3 mb-5 bg-body rounded">
+                <div class="card-body">
+                    <h2 class="card-title">User Profile</h2>
+                    <p class="card-text"><strong>First Name:</strong> {{ user.first_name }}</p>
+                    <p class="card-text"><strong>Last Name:</strong> {{ user.last_name }}</p>
+                    <p class="card-text"><strong>Username:</strong> {{ user.username }}</p>
+                    <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                    <p class="card-text"><strong>Mobile Number:</strong> {{ user.profile.phone_number }}</p>
+                    <p class="card-text"><strong>Address:</strong> {{ user.profile.address }}</p>
+                </div>
+            </div>
+        </div>
+        {% comment %} <div class="col-md-6">
+            <div class="card shadow p-3 mb-5 bg-body rounded">
+                <div class="card-body">
+                    <h2 class="card-title">Update Profile</h2>
+                    <!-- Profile Update Form -->
+                    <form method="POST" action="{% url 'update_profile' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="mobile" class="form-label">Mobile Number</label>
+                            <input type="text" class="form-control" id="mobile" name="mobile" value="{{ user.profile.mobile }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <textarea class="form-control" id="address" name="address" rows="3">{{ user.profile.address }}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div> {% endcomment %}
+    </div>
+    <!-- Order History -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card shadow p-3 mb-5 bg-body rounded">
+                <div class="card-body">
+                    <h2 class="card-title">Order History</h2>
+                    <ul class="list-group list-group-flush">
+                        {% for order in orders %}
+                            <li class="list-group-item border-top-0 border-end-0 border-bottom border-start-0">
+                                <div class="d-flex flex-wrap justify-content-between">
+                                    <div class="flex-fill mb-4 mr-4" style="max-width: 300px;">
+                                        <h5 class="card-title mb-2">Product Name:</h5>
+                                        <p class="card-text">{{ order.product }}</p>
+                                        <p class="card-text">Date: {{ order.date }}</p>
+                                    </div>
+                                    <div class="flex-fill mb-4 mr-4" style="max-width: 300px;">
+                                        <h5 class="card-title mb-2">Quantity:</h5>
+                                        <p class="card-text">{{ order.quantity }}</p>
+                                        <h5 class="card-title mt-3 mb-2">Address:</h5>
+                                        <p class="card-text">{{ order.shipping_address }}</p>
+                                    </div>
+                                    <div class="flex-fill mb-4 mr-4" style="max-width: 300px;">
+                                        <h5 class="card-title mb-2">Status:</h5>
+                                        <p class="card-text">{{ order.status }}</p>
+                                    </div>
+                                    <div class="flex-fill mb-4" style="max-width: 300px;">
+                                        <h5 class="card-title mb-2">Total Amount:</h5>
+                                        <p class="card-text">₹ {{ order.total }}</p>
+                                    </div>
+                                </div>
+                                
+                            </li>
+                        {% empty %}
+                            <p>No orders found.</p>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

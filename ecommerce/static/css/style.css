@@ -1,0 +1,101 @@
+/* common.css */
+
+/* Global styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.container-fluid {
+  padding: 0;
+  margin: 0;
+}
+
+/* Navbar styles */
+.navbar-nav .nav-link {
+  padding-bottom: 0.5rem;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
+  color: #ffc107;
+}
+
+.navbar-nav .active::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #ffc107;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* Footer styles */
+.footer-link {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+footer {
+  background-color: #343a40;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* Remove redundant styles */
+
+/* carousel.css */
+
+.carousel-container {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.carousel-inner, .carousel-item {
+  height: 100%;
+}
+
+.carousel img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* product.css */
+
+.product-container {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.product-image, .product-title {
+  border-radius: 8px;
+}
+
+.product-title {
+  color: #343a40;
+}
+
+.product-category {
+  font-style: italic;
+  color: #6c757d;
+}
+
+.product-short-description, .product-description-title {
+  color: #343a40;
+}
+
+.product-price {
+  color: #007bff;
+}
+
+.product-long-description {
+  color: #6c757d;
+}

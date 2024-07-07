@@ -1,0 +1,55 @@
+{% extends 'profile.html' %}
+
+{% block title %}Your E-commerce Site - Buy{% endblock %}
+
+{% block body %}
+
+<body>
+
+  <div class="container mt-5 mb-5 pb-5 pt-5 bg-dark text-white">
+    <h2 class="text-warning text-center">Place Your Order</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="text-warning">Shipping Information</h3>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <div class="form-group p-3 bg-light text-dark">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" name="fullName" class="form-control" id="fullName" placeholder="Enter your full name" value="{{ user.first_name }} {{ user.last_name }} ">
+                </div>
+                <div class="form-group p-3 bg-light text-dark">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" name="phone" class="form-control" id="phone" placeholder="Enter your phone number" value="{{ user.profile.phone_number }}">
+                </div>
+                <div class="form-group p-3 bg-light text-dark">
+                    <label for="address">Address</label>
+                    <input type="text" name="address" class="form-control" id="address" placeholder="Enter your address" value="{{ user.profile.address }}">
+                </div>
+                <div class="form-group p-3 bg-light text-dark">
+                    <button type="submit" class="btn btn-warning">Buy Now</button>
+                </div>
+            </form>
+        </div>        
+        <div class="col-md-5 p-4 w-50 my-5 overflow-auto"> 
+            <h3 class="text-dark">Order Summary</h3>
+            <div class="card bg-light">
+              <div class="card-body">
+                {% if product %}
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">Quantity: {{ product.quantity }}</p> 
+                    <p class="card-text">Price: ₹{{ product.price }}</p> 
+                    <hr>
+                    <p class="card-text"><strong>Total:</strong> ₹ {{ product.total_price }}</p> 
+                {% endif %}
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (optional) -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+{% endblock body %}

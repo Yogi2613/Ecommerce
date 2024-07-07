@@ -1,0 +1,56 @@
+<!-- shop.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Your E-commerce Site - Shop{% endblock %}
+
+{% block body %}
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+            {% for product in products %}
+                <div class="col">
+                    <div class="card shadow-sm bg-dark text-light">
+                        <img src="{{ product.image.url }}" class="d-block w-100" alt="{{ product.name }}">
+                        <div class="card-body">
+                            <p class="card-text">{{ product.name }}</p>
+                            <p class="card-text">{{ product.description }}</p>
+                            <p class="card-text">Price: ${{ product.price }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{% url 'productdetails' product.pk %}" type="button" class="btn btn-sm btn-outline-warning text-light">View</a>
+                                    <form action="{% url 'add-to-cart' product.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="btn btn-sm btn-outline-warning text-light" type="submit">Add to Cart</button>
+                                    </form>                                </div>
+                                <small class="text-body-secondary">9 mins</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% comment %} paginator {% endcomment %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if products.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ products.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ products.number }} of {{ products.paginator.num_pages }}.
+                </span>
+
+                {% if products.has_next %}
+                    <a href="?page={{ products.next_page_number }}">next</a>
+                    <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

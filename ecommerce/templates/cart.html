@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} Cart {% endblock title %}
+
+{% block body %}
+<div class="container my-5">
+    <h2>Your Cart</h2>
+    {% if cart_items %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+    <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>₹ {{ item.product.price }}</td>
+        <td>₹ {{ item.total_price }}</td>
+        <td>
+            <a href="{% url 'remove_from_cart' item.id %}">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </a>
+        </td>
+    </tr>
+{% endfor %}
+                <tr>
+                    <td colspan="4" class="text-end"><strong>Total:</strong></td>
+                    <td><strong>${{ cart_total }}</strong></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="text-end">
+            <a href="{% url 'buy' %}" class="btn btn-primary">Proceed to Checkout</a>
+        </div>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock body %}
